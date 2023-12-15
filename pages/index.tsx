@@ -34,7 +34,7 @@ toast.configure();
 
 const Home = () => {
 
-  const specificTime = new Date('2023-12-08T23:00:00').getTime();
+  const specificTime = new Date('2023-12-18T23:00:00').getTime();
   const currentTime = new Date().getTime();
   const initialTime = Math.max(0, Math.floor((specificTime - currentTime) / 1000));
     const [time, setTime] = useState(initialTime);
@@ -64,27 +64,80 @@ const Home = () => {
   let nbsp = "\u00A0"
   const url = "https://base.zkmemes.xyz/progress.php";
   const url2 = "https://base.zkmemes.xyz/post.php";
+  const url3 = "https://base.zkmemes.xyz/updateineligibility.php"
+  const url4 = "https://base.zkmemes.xyz/ineligiblelist.php"
+  const url5 = "https://base.zkmemes.xyz/updateeligibility.php"
+  const url6 = "https://base.zkmemes.xyz/eligiblelist.php"
+  const url7 = "https://base.zkmemes.xyz/claimedlist.php"
   const tokenAddress = "0x78E3B821d5eEF560b841634ac4b7204e16A245f0";
   const { contract, isLoading: contractLoading, error:contractError } = useContract(tokenAddress, "token-drop");
   const address = useAddress();
   
-
+  const [datam, setDatam] = useState([]);
+  const [datamm, setDatamm] = useState([]);
+  const [datammm, setDatammm] = useState([]);
 
   const [urlData, setUrlData] = useState([]);
   const fetchInfo = async () => {
     return await fetch(url).then((res) => res.json()
     ).then((d)=>setUrlData(d.progress))
   }
+ 
+
+
   const fetchInfo2 = async () => {
-   return await fetch(url2).then((res) => res.json()
-    ).then((d)=>(null))
-  }
-  useEffect(() => {
-    fetchInfo();
-    
-  }, []);
+    try {
+      const response = await fetch(url2+"?address="+address);
+
+      if (!response.ok) {
+        throw new Error('Failed to send data to PHP endpoint');
+      }
+
+      const responseData = await response.json();
+      console.log('PHP response:', responseData);
+    } catch (error) {
+      console.error('Error sending data to PHP:', error);
+    }
+  };
+
+
+  const updateIneligibility = async () => {
+    try {
+      const response = await fetch(url3+"?address="+address);
+
+      if (!response.ok) {
+        throw new Error('Failed to send data to PHP endpoint');
+      }
+
+      const responseData = response;
+      console.log('PHP response:', responseData);
+    } catch (error) {
+      console.error('Error sending data to PHP:', error);
+    }
+  };
+
+  const updateeligibility = async () => {
+    try {
+      const response = await fetch(url5+"?address="+address);
+
+      if (!response.ok) {
+        throw new Error('Failed to send data to PHP endpoint');
+      }
+
+      const responseData = response;
+      console.log('PHP response:', responseData);
+    } catch (error) {
+      console.error('Error sending data to PHP:', error);
+    }
+  };
+
+
+  // Trigger sendDataToPhp when yourValue changes
+
+
   const [quantity, setQuantity] = useState(1000000);
   const [showRef, setShowRef] = useState(false);
+  const [claimed, setClaimed] = useState(false);
   const [eligible, setEligible] = useState(true);
   const [disableClaim, setDisableClaim] = useState(false);
   const { data: contractMetadata } = useContractMetadata(contract);
@@ -244,37 +297,7 @@ const Home = () => {
     return isLoading },
     [ isLoading]
   );
-  const buttonText = useMemo(() => {
-    if (isSoldOut) {
-      return `${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp}  ${nbsp} ${nbsp} Loading.. ${nbsp} ${nbsp}   ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp}  ${nbsp} `;
-    }
-
-    if (canClaim) {
-      const pricePerToken = BigNumber.from(
-        activeClaimCondition?.currencyMetadata.value || 0
-      );
-      if (pricePerToken.eq(0)) {
-        return "Mint (Free)";
-      }
-      return `${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp}  ${nbsp}   Claim Airdrop ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp} ${nbsp} ${nbsp}     `;
-    }
-
-    
  
-    if (buttonLoading) {
-      return `${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp}  ${nbsp} ${nbsp} Loading.. ${nbsp} ${nbsp}   ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp}  ${nbsp}`;
-    }
-
-    return "Claiming not available";
-  }, [
-    isSoldOut,
-    canClaim,
-    buttonLoading,
-    activeClaimCondition?.currencyMetadata.value,
-    priceToMint,
-    quantity,
-  ]);
-
 
   const API_URL = "https://api.basescan.org/api?module=account&action=txlist&address="+address+"&startblock=0&endblock=99999999&page=1&offset=5&sort=asc&apikey=25TQF9ZS65X625DAHB12JP3IEXRZQ162F2";
 
@@ -330,6 +353,41 @@ const Home = () => {
 
   const fetchAndProcessData = async () => {
     try {
+      fetch(url4)
+      .then((response) => response.json())
+      .then((jsonData) => setDatam(jsonData))
+      .catch((error) => console.error('Error fetching data:', error));
+      console.log(datam)
+
+      fetch(url6)
+      .then((response) => response.json())
+      .then((jsonData) => setDatamm(jsonData))
+      .catch((error) => console.error('Error fetching data:', error));
+      console.log(datamm)
+
+      fetch(url7)
+      .then((response) => response.json())
+      .then((jsonData) => setDatammm(jsonData))
+      .catch((error) => console.error('Error fetching data:', error));
+      console.log(datammm)
+
+
+      const isValueInArray = datam.includes(address);
+      const isValueInArray2 = datamm.includes(address);
+       const isValueInArray3 = datammm.includes(address);
+      console.log(datam.length)
+       if (isValueInArray) {
+
+        console.log("ineligibilty already preset")
+        setDisableClaim(true);
+        setEligible(false);
+      } 
+      if (isValueInArray2) {
+
+        console.log("eligibilty already preset")
+
+      } 
+        if (!isValueInArray && datam.length!==0 && !isValueInArray2) {
       const numberOfObjects = await fetchDataAndProcess();
       console.log("Number of Objects:", numberOfObjects);
   
@@ -338,22 +396,73 @@ const Home = () => {
       if (numberOfObjects < 5) {
         setDisableClaim(true);
         setEligible(false);
+        updateIneligibility();
+      }      
       }
-      return numberOfObjects;
+
+      if (!isValueInArray2 && datamm.length!==0 && !isValueInArray) {
+        const numberOfObjects2 = await fetchDataAndProcess();
+        console.log("Number of Objects2:", numberOfObjects2);
+        if (numberOfObjects2 > 4) {
+      
+          updateeligibility();
+        }}
+        if (isValueInArray3) {
+          setDisableClaim(true);
+          setClaimed(true);
+        
+      }
     } catch (error) {
       // Handle errors here
       console.error("Error:", error);
     }
   };
 
+  const buttonText = useMemo(() => {
+    if (isSoldOut) {
+      return `${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp}  ${nbsp} ${nbsp} Loading.. ${nbsp} ${nbsp}   ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp}  ${nbsp} `;
+    }
+
+
+    if (claimed) {
+      return `${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp}  ${nbsp}   Claimed ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp} ${nbsp} ${nbsp}     `;
+    }
+
+    if (canClaim) {
+      const pricePerToken = BigNumber.from(
+        activeClaimCondition?.currencyMetadata.value || 0
+      );
+      if (pricePerToken.eq(0)) {
+        return "";
+      }
+      return `${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp}  ${nbsp}   Claim Airdrop ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp} ${nbsp} ${nbsp}     `;
+    }
+
+    
+ 
+    if (buttonLoading) {
+      return `${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp}  ${nbsp} ${nbsp} Loading.. ${nbsp} ${nbsp}   ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp}  ${nbsp}`;
+    }
+
+    return "Claiming not available";
+  }, [
+    isSoldOut,
+    canClaim,
+    buttonLoading,
+    activeClaimCondition?.currencyMetadata.value,
+    priceToMint,
+    quantity,
+   
+    
+  ]);
+
+
+
   useEffect(() => {
-    // This code will run whenever myConst changes
-    if (address && address.length > 10) {
-    fetchAndProcessData(); }
-
-    // Add your code here that should run when myConst changes
-  }, [address]); 
-
+    fetchInfo();
+    fetchAndProcessData();
+  }, [contract]);
+ 
   return (
     <>
     <div className="wrapper">
@@ -484,7 +593,7 @@ padding: "70px 0 0 0",
 <div data-v-61401fb6="" className="times">
 <div data-v-61401fb6ƒimg="" className="box">
 <img data-v-61401fb6="" src={require("./images/index/icon_time.png")} alt="" />
-<span data-v-61401fb6="">2023.12.08 16:00:00 - 2023.12.08 23:00:00</span>
+<span data-v-61401fb6="">2023.12.18 16:00:00 - 2023.12.18 23:00:00</span>
 <h1>{}</h1>
 <div dangerouslySetInnerHTML={{ __html: initialHTML }} />
 
@@ -526,9 +635,10 @@ width: `${urlData ? urlData : 0}%`,}}>
           
           action={(contract) => contract.erc20.claim(quantity)}
           onSuccess={() => {
-
+            setClaimed(true);
             fetchInfo();
             fetchInfo2();
+            fetchAndProcessData();
             toast.success("Claimed Successfully", {
               // Set to 15sec
               position: toast.POSITION.BOTTOM_RIGHT, autoClose:15000})
