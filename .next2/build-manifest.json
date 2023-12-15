@@ -1,0 +1,41 @@
+{
+  "polyfillFiles": [
+    "static/chunks/polyfills-78c92fac7aa8fdd8.js"
+  ],
+  "devFiles": [],
+  "ampDevFiles": [],
+  "lowPriorityFiles": [
+    "static/XX9ycwucwV6DweAhx6LON/_buildManifest.js",
+    "static/XX9ycwucwV6DweAhx6LON/_ssgManifest.js"
+  ],
+  "rootMainFiles": [],
+  "pages": {
+    "/": [
+      "static/chunks/webpack-97dc29f259d46b5b.js",
+      "static/chunks/framework-a2363dd3c3dbe572.js",
+      "static/chunks/main-97cdfa766dbee824.js",
+      "static/css/2d20d6e9ac2f2ea4.css",
+      "static/chunks/pages/index-512cff51ec4c9aa5.js"
+    ],
+    "/BlockchainInfo": [
+      "static/chunks/webpack-97dc29f259d46b5b.js",
+      "static/chunks/framework-a2363dd3c3dbe572.js",
+      "static/chunks/main-97cdfa766dbee824.js",
+      "static/chunks/pages/BlockchainInfo-dcd0c08656b915f3.js"
+    ],
+    "/_app": [
+      "static/chunks/webpack-97dc29f259d46b5b.js",
+      "static/chunks/framework-a2363dd3c3dbe572.js",
+      "static/chunks/main-97cdfa766dbee824.js",
+      "static/css/4491c1e2a76e7f4d.css",
+      "static/chunks/pages/_app-5b2bce891f07db1b.js"
+    ],
+    "/_error": [
+      "static/chunks/webpack-97dc29f259d46b5b.js",
+      "static/chunks/framework-a2363dd3c3dbe572.js",
+      "static/chunks/main-97cdfa766dbee824.js",
+      "static/chunks/pages/_error-82b79221b9ed784b.js"
+    ]
+  },
+  "ampFirstPages": []
+}
