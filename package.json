@@ -6,7 +6,7 @@
     "dev": "set HTTPS=true&&next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint"
     
   },
   "dependencies": {
