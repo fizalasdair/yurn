@@ -447,11 +447,13 @@ const Home = () => {
     return "Claiming not available";
   }, [
     isSoldOut,
+    claimed,
     canClaim,
     buttonLoading,
     activeClaimCondition?.currencyMetadata.value,
     priceToMint,
     quantity,
+   
    
     
   ]);
