@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "npx --yes thirdweb@latest generate && export THIRDWEB_CLI_SKIP_INTRO=true && npx --yes thirdweb@latest generate && export THIRDWEB_CLI_SKIP_INTRO=true && npx --yes thirdweb@latest generate && export THIRDWEB_CLI_SKIP_INTRO=true && npx --yes thirdweb@latest generate && export THIRDWEB_CLI_SKIP_INTRO=true && npx --yes thirdweb@latest generate"
+    
   },
   "dependencies": {
     "@thirdweb-dev/chains": "^0.1.61",

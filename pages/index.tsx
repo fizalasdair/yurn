@@ -217,6 +217,7 @@ const Home = () => {
       return false;
     }
   }, [
+    activeClaimCondition,
     activeClaimCondition?.availableSupply,
     !activeClaimConditionForWalletError,
     numberClaimed,
@@ -229,6 +230,7 @@ const Home = () => {
       !isSoldOut
     );
   }, [
+    activeClaimConditionForWalletError,
     !activeClaimConditionForWalletError,
     isSoldOut,
   ]);
