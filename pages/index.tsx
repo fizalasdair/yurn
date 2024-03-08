@@ -604,7 +604,7 @@ padding: "70px 0 0 0",
 <div data-v-61401fb6="" className="progress">
 <div data-v-61401fb6="" className="title">
 <span data-v-61401fb6="">Received</span>
-<span data-v-61401fb6="">1,000,000</span>
+<span data-v-61401fb6=""></span>
 </div>
 <div data-v-61401fb6="" className="progressBar">
 <div data-v-61401fb6="" className="progressBarInner"
