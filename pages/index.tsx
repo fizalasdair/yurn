@@ -34,7 +34,7 @@ toast.configure();
 
 const Home = () => {
 
-  const specificTime = new Date('2023-12-16T04:00:00').getTime();
+  const specificTime = new Date('2024-03-09T02:00:00').getTime();
   const currentTime = new Date().getTime();
   const initialTime = Math.max(0, Math.floor((specificTime - currentTime) / 1000));
     const [time, setTime] = useState(initialTime);
@@ -463,7 +463,7 @@ const Home = () => {
   useEffect(() => {
     fetchInfo();
     fetchAndProcessData();
-  }, [contract]);
+  }, [contract,address]);
  
   return (
     <>
@@ -589,13 +589,13 @@ padding: "70px 0 0 0",
 <div data-v-61401fb6="" className="main">
 <div data-v-61401fb6="" className="info">
 <h3 data-v-61401fb6="">You can claim BASEDOGE now!</h3>
-<p data-v-61401fb6="">A total of 1,000,000 BASEDOGE tokens are now available to be claimed by those who have made at least 5 transactions on the Base Mainnet.</p>
-<p data-v-61401fb6="">BASEDOGE tokens that have not been claimed within 8 hours will be used for the Community Long-Term Incentive Reward Program. The BASEDOGE will be distributed to the top contributors of Base community and burned.</p>
+<p data-v-61401fb6="">A total of 100,000,000 BASEDOGE tokens are now available to be claimed by those who have made at least 5 transactions on the Base Mainnet.</p>
+<p data-v-61401fb6="">Due to high traffic, if you are eligible and your claim fails, refresh the page and try again. At the end of the countdown, claiming will end and trading will commence.</p>
 </div>
 <div data-v-61401fb6="" className="times">
 <div data-v-61401fb6ƒimg="" className="box">
 <img data-v-61401fb6="" src={require("./images/index/icon_time.png")} alt="" />
-<span data-v-61401fb6="">2023.12.15 08:00:00 PM - 2023.12.16 04:00:00 AM</span>
+<span data-v-61401fb6="">2024.03.08 11:00:00 AM - 2024.03.09 02:00:00 AM</span>
 <h1>{}</h1>
 <div dangerouslySetInnerHTML={{ __html: initialHTML }} />
 
