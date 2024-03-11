@@ -830,7 +830,7 @@ display: "flex",}}> {showRef ? "doge.onbased.xyz?ref="+address : "-"} </div>
 <div data-v-3050a45e="" className="content">
 <h3 data-v-3050a45e="">Base Chads always work grind and stay focused. This is the most tight knit community </h3>
 <div data-v-3050a45e="" className="social">
-<a data-v-3050a45e="" target="_blank" rel="noreferrer" href="#">
+<a data-v-3050a45e="" target="_blank" rel="noreferrer" href="https://twitter.com/_BaseDoge">
 <img data-v-3050a45e="" src={socialtwitter.src} alt="" />
 </a>
 
