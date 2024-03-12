@@ -465,6 +465,13 @@ const Home = () => {
     fetchAndProcessData();
   }, [contract,address]);
  
+
+
+const reflink = <a href={'https://twitter.com/intent/tweet?text=I%20just%20claimed%20my%20%40_BaseDoge%20rewards%20for%20being%20active%20on%20L2%20mainnets.%0A%24BDOGE%20trading%20starts%20soon%20on%20Base%20Mainnet.%0A%0Ahttps%3A%2F%2Fdoge.onbased.xyz%3Fref%3D'+address}>doge.onbased.xyz?ref={address}</a>
+
+
+
+  //start of wrapper body
   return (
     <>
     <div className="wrapper">
@@ -663,13 +670,13 @@ width: `${urlData ? urlData : 0}%`,}}>
 onClick={(e) => address ? setShowRef(!showRef) : toast.error("Wallet Not Connected", {
   // Set to 15sec
   position: toast.POSITION.BOTTOM_LEFT, autoClose:6000})} >
-<span data-v-61401fb6="" >Invite Friends</span>
+<span data-v-61401fb6="" >Earn Referral Bonus</span>
 </a>
 </div> <br />
 <div id="inviteLink" data-v-61401fb6="" className="input" 
 style={{
 wordBreak: "break-word",
-display: "flex",}}> {showRef ? "doge.onbased.xyz?ref="+address : "-"} </div>
+display: "flex",}}> {showRef ? reflink : "-"} </div>
 </div>
 </div>
 </div>
