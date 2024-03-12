@@ -467,7 +467,7 @@ const Home = () => {
  
 
 
-const reflink = <a href={'https://twitter.com/intent/tweet?text=I%20just%20claimed%20my%20%40_BaseDoge%20rewards%20for%20being%20active%20on%20L2%20mainnets.%0A%24BDOGE%20trading%20starts%20soon%20on%20Base%20Mainnet.%0A%0Ahttps%3A%2F%2Fdoge.onbased.xyz%3Fref%3D'+address}>doge.onbased.xyz?ref={address}</a>
+const reflink = <a href={'https://twitter.com/intent/tweet?text=I%20just%20claimed%20my%20%40_BaseDoge%20rewards%20for%20being%20active%20on%20L2%20mainnets.%0A%24BDOGE%20trading%20starts%20soon%20on%20Base%20Mainnet.%0A%0Ahttps%3A%2F%2Fdoge.onbased.xyz%3Fref%3D'+address} target="_blank" rel="noreferrer">doge.onbased.xyz?ref={address}</a>
 
 
 
