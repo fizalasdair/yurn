@@ -34,10 +34,14 @@ toast.configure();
 
 const Home = () => {
 
+ 
+  
   const specificTime = new Date('2024-03-20T12:00:00').getTime();
   const currentTime = new Date().getTime();
   const initialTime = Math.max(0, Math.floor((specificTime - currentTime) / 1000));
     const [time, setTime] = useState(initialTime);
+
+ 
 
 
     useEffect(() => {
@@ -48,6 +52,8 @@ const Home = () => {
       // Cleanup function to clear the interval on component unmount
       return () => clearInterval(intervalId);
     }, []);
+
+    
   
     const formatTime = (seconds: number): string => {
       const hours = Math.floor(seconds / 3600);
@@ -72,11 +78,27 @@ const Home = () => {
   const tokenAddress = "0x78E3B821d5eEF560b841634ac4b7204e16A245f0";
   const { contract, isLoading: contractLoading, error:contractError } = useContract(tokenAddress, "token-drop");
   const address = useAddress();
+
+  
   
   const [datam, setDatam] = useState([]);
   const [datamm, setDatamm] = useState([]);
   const [datammm, setDatammm] = useState([]);
+  const [status, setStatus] = useState(null);
+  const [announced, setAnnounced] = useState(null);
+  const [presets, setPresets] = useState(null);
+  const [responsez, setResponsez] = useState(null);
+  const [quantity, setQuantity] = useState(1000000);
+  const [showRef, setShowRef] = useState(false);
+  const [claimed, setClaimed] = useState(false);
+  const [eligible, setEligible] = useState(true);
+  const [disableClaim, setDisableClaim] = useState(false);
 
+
+
+
+
+  
   const [urlData, setUrlData] = useState([]);
   const fetchInfo = async () => {
     return await fetch(url).then((res) => res.json()
@@ -95,6 +117,7 @@ const Home = () => {
 
       const responseData = await response.json();
       console.log('PHP response:', responseData);
+      
     } catch (error) {
       console.error('Error sending data to PHP:', error);
     }
@@ -111,6 +134,8 @@ const Home = () => {
 
       const responseData = response;
       console.log('PHP response:', responseData);
+      setDisableClaim(true);
+      setEligible(false);
     } catch (error) {
       console.error('Error sending data to PHP:', error);
     }
@@ -126,6 +151,8 @@ const Home = () => {
 
       const responseData = response;
       console.log('PHP response:', responseData);
+      setDisableClaim(false);
+      setEligible(true);
     } catch (error) {
       console.error('Error sending data to PHP:', error);
     }
@@ -135,11 +162,6 @@ const Home = () => {
   // Trigger sendDataToPhp when yourValue changes
 
 
-  const [quantity, setQuantity] = useState(1000000);
-  const [showRef, setShowRef] = useState(false);
-  const [claimed, setClaimed] = useState(false);
-  const [eligible, setEligible] = useState(true);
-  const [disableClaim, setDisableClaim] = useState(false);
   const { data: contractMetadata } = useContractMetadata(contract);
 
   const claimConditions = useClaimConditions(contract);
@@ -157,6 +179,7 @@ const Home = () => {
   
 
   const claimedSupply = useTokenSupply(contract);
+
 
   const totalAvailableSupply = useMemo(() => {
     try {
@@ -286,6 +309,7 @@ const Home = () => {
     activeClaimConditionForWalletError,
     !activeClaimConditionForWalletError,
     isSoldOut,
+  
   ]);
 
   const isLoading = useMemo(() => {
@@ -299,31 +323,63 @@ const Home = () => {
   );
  
 
+
+
+
+
   const API_URL = "https://api.basescan.org/api?module=account&action=txlist&address="+address+"&startblock=0&endblock=99999999&page=1&offset=5&sort=asc&apikey=25TQF9ZS65X625DAHB12JP3IEXRZQ162F2";
 
-  const fetchData = async (): Promise<any> => {
+  const API_URL2 = "https://base.blockscout.com/api?module=account&action=txlist&address="+address+"&page=1&offset=5&apikey=9ed8a27e-174d-43da-a023-ff4d5a761c7c";
+
+
+
+
+  const fetchData = async () => {
+ 
+let function_response = null
+ 
+if (address ){
     try {
-      const responsez = await fetch(API_URL);
-      const datas = await responsez.json();
-      if (datas.status === "1") {
-        return datas.result;
-      } else {
-        throw new Error("API error");
-      }
+     
+      
+      
+
+       const response = await fetch(API_URL2);
+       const data = await response.json();
+       function_response =data
+    
+     
+  
     } catch (error) {
+      console.log(Error("Try Block error"));
       return null;
     }
-  };
+   
+    
+    console.log(status)
+      console.log(function_response)
+    
+ 
+      return function_response;
+  
+  }
+}
+  ;
+
+
   
 
 
-  const retryFetchData = async (): Promise<any> => {
-    let retriesz = 50; // Number of retries
-    let resultz = null;
+  const retryFetchData = async ()=> {
+    let retriesz = 10; // Number of retries
+    let resultzz
   
     while (retriesz > 0) {
-      resultz = await fetchData();
-      if (resultz !== null) {
+      const resultz2 = await status;
+   
+      resultzz = resultz2
+    console.log(resultzz)
+      if (resultzz) {
         // Successful response, break the loop
         break;
       } else {
@@ -333,17 +389,18 @@ const Home = () => {
       }
     }
   
-    return resultz;
+    return resultzz;
   };
 
  
 
 
   const fetchDataAndProcess = async () => {
+    
     const apiData = await retryFetchData();
-  
-    if (apiData !== null) {
-      const numberOfObjects = apiData.length; // Count the number of objects
+   console.log(apiData)
+    if (apiData.result !== null) {
+      const numberOfObjects = apiData.result.length; // Count the number of objects
       console.log("Number of Objects:", numberOfObjects);
       return numberOfObjects;
     } else {
@@ -352,48 +409,73 @@ const Home = () => {
   };
 
   const fetchAndProcessData = async () => {
+    if (address){
+      console.log(status)
     try {
       fetch(url4)
       .then((response) => response.json())
       .then((jsonData) => setDatam(jsonData))
       .catch((error) => console.error('Error fetching data:', error));
-      console.log(datam)
+    
 
       fetch(url6)
       .then((response) => response.json())
       .then((jsonData) => setDatamm(jsonData))
       .catch((error) => console.error('Error fetching data:', error));
-      console.log(datamm)
+    
 
       fetch(url7)
       .then((response) => response.json())
       .then((jsonData) => setDatammm(jsonData))
       .catch((error) => console.error('Error fetching data:', error));
-      console.log(datammm)
+  
 
 
       const isValueInArray = datam.includes(address);
       const isValueInArray2 = datamm.includes(address);
        const isValueInArray3 = datammm.includes(address);
+      
       console.log(datam.length)
+      console.log(datamm.length)
+      console.log(datammm.length)
        if (isValueInArray) {
 
         console.log("ineligibilty already preset")
+       setPresets(true);
         setDisableClaim(true);
         setEligible(false);
+        return null;
       } 
+      if (isValueInArray3) {
+        setPresets(true);
+        console.log(" already claimed")
+        setEligible(true);
+        setDisableClaim(true);
+        setClaimed(true);
+        return null;
+    } 
       if (isValueInArray2) {
-
+        setPresets(true);
         console.log("eligibilty already preset")
+        setDisableClaim(false);
+        setEligible(true);
+        return null;
 
       } 
+ 
+      setResponsez(true)
+
+      if (status!=null && presets==null){
+        
         if (!isValueInArray && datam.length!==0 && !isValueInArray2) {
       const numberOfObjects = await fetchDataAndProcess();
+   
       console.log("Number of Objects:", numberOfObjects);
   
       // Adjust the condition based on your specific eligibility criteria
   
       if (numberOfObjects < 5) {
+        console.log("ineligibilty triggered")
         setDisableClaim(true);
         setEligible(false);
         updateIneligibility();
@@ -404,19 +486,20 @@ const Home = () => {
         const numberOfObjects2 = await fetchDataAndProcess();
         console.log("Number of Objects2:", numberOfObjects2);
         if (numberOfObjects2 > 4) {
-      
+          console.log("eligibilty triggered")
+       setDisableClaim(false);
+        setEligible(true);
           updateeligibility();
         }}
-        if (isValueInArray3) {
-          setDisableClaim(true);
-          setClaimed(true);
-        
-      }
+      
+    }   return true;
     } catch (error) {
       // Handle errors here
       console.error("Error:", error);
     }
-  };
+   } };
+
+
 
   const buttonText = useMemo(() => {
     if (isSoldOut) {
@@ -438,11 +521,10 @@ const Home = () => {
       return `${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp}  ${nbsp}   Claim Airdrop ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp} ${nbsp} ${nbsp}     `;
     }
 
-    
- 
     if (buttonLoading) {
       return `${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp}  ${nbsp} ${nbsp} Loading.. ${nbsp} ${nbsp}   ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp}  ${nbsp}`;
     }
+ 
 
     return "Claiming not available";
   }, [
@@ -453,6 +535,8 @@ const Home = () => {
     activeClaimCondition?.currencyMetadata.value,
     priceToMint,
     quantity,
+    address
+    
    
    
     
@@ -460,15 +544,61 @@ const Home = () => {
 
 
 
-  useEffect(() => {
-    fetchInfo();
-    fetchAndProcessData();
-  }, [contract,address]);
- 
 
 
 const reflink = <a href={'https://twitter.com/intent/tweet?text=I%20just%20claimed%20my%20%40_BaseDoge%20rewards%20for%20being%20active%20on%20L2%20mainnets.%0A%24BDOGE%20trading%20starts%20soon%20on%20Base%20Mainnet.%0A%0Ahttps%3A%2F%2Fdoge.onbased.xyz%3Fref%3D'+address} target="_blank" rel="noreferrer">doge.onbased.xyz?ref={address}</a>
 
+
+useEffect(() => {
+
+
+  (async () => {
+   
+    console.log("useeffectcalled"+presets)
+    
+    try {
+      
+      await fetchInfo();
+     
+        
+       if( await fetchAndProcessData()){
+        if(address && presets==null && responsez==true){
+       setStatus(fetchData)}
+   
+         
+      }
+    }
+    catch(err){
+      console.log(err)
+    }
+    
+    })();
+ 
+  
+  
+}, [contract,address,eligible,presets,claimed]);
+
+
+useEffect(() => {if(address!=null){
+  setStatus(null)
+  setPresets(null)
+}},[address])
+
+
+
+    useEffect(() => {
+      (async () => {
+   
+     
+        try {
+          if(status!=null){
+          await fetchAndProcessData()}}
+        catch(err){
+          console.log(err)
+        }
+        
+        })();
+         }, [status]);
 
 
   //start of wrapper body
