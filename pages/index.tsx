@@ -726,7 +726,7 @@ padding: "70px 0 0 0",
 <div data-v-61401fb6="" className="main">
 <div data-v-61401fb6="" className="info">
 <h3 data-v-61401fb6="">You can claim BASEDOGE now!</h3>
-<p data-v-61401fb6="">A total of 100,000,000 BASEDOGE tokens are now available to be claimed by those who have made transactions on L2 Mainnets.</p>
+<p data-v-61401fb6="">A total of 1,000,000,000 BASEDOGE tokens are now available to be claimed by those who have made transactions on L2 Mainnets.</p>
 <p data-v-61401fb6=""></p>
 </div>
 <div data-v-61401fb6="" className="times">
