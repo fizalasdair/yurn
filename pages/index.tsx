@@ -85,6 +85,7 @@ const Home = () => {
   const [datamm, setDatamm] = useState([]);
   const [datammm, setDatammm] = useState([]);
   const [status, setStatus] = useState(null);
+  const [addressmonitor, setAddressMonitor] = useState(null)
   const [announced, setAnnounced] = useState(null);
   const [presets, setPresets] = useState(null);
   const [responsez, setResponsez] = useState(null);
@@ -409,6 +410,7 @@ if (address ){
   };
 
   const fetchAndProcessData = async () => {
+    console.log("fetchAndProcessData called")
     if (address){
       console.log(status)
     try {
@@ -463,7 +465,7 @@ if (address ){
 
       } 
  
-      setResponsez(true)
+      if(presets==null){setResponsez(true)}
 
       if (status!=null && presets==null){
         
@@ -549,12 +551,13 @@ if (address ){
 const reflink = <a href={'https://twitter.com/intent/tweet?text=I%20just%20claimed%20my%20%40_BaseDoge%20rewards%20for%20being%20active%20on%20L2%20mainnets.%0A%24BDOGE%20trading%20starts%20soon%20on%20Base%20Mainnet.%0A%0Ahttps%3A%2F%2Fdoge.onbased.xyz%3Fref%3D'+address} target="_blank" rel="noreferrer">doge.onbased.xyz?ref={address}</a>
 
 
+
 useEffect(() => {
 
 
   (async () => {
    
-    console.log("useeffectcalled"+presets)
+    console.log("useeffectcalled presets: "+presets+" responsez: "+responsez)
     
     try {
       
@@ -562,7 +565,8 @@ useEffect(() => {
      
         
        if( await fetchAndProcessData()){
-        if(address && presets==null && responsez==true){
+        if(address!=null && presets==null && responsez==true && datam.length != 0 && datamm.length != 0 && datammm.length != 0){
+          console.log("fetchdata called")
        setStatus(fetchData)}
    
          
@@ -576,13 +580,10 @@ useEffect(() => {
  
   
   
-}, [contract,address,eligible,presets,claimed]);
+}, [contract,address,eligible,claimed,responsez,presets]);
 
 
-useEffect(() => {if(address!=null){
-  setStatus(null)
-  setPresets(null)
-}},[address])
+
 
 
 
@@ -600,6 +601,24 @@ useEffect(() => {if(address!=null){
         })();
          }, [status]);
 
+
+  
+
+         useEffect(() => {if(address!=null && status==null){
+         // window.location.reload()
+          
+          
+          }},[responsez])
+
+
+          useEffect(() => {if(address!=null){
+            setStatus(null)
+            setPresets(null)
+            setAddressMonitor(true)
+          
+          }},[address])
+
+      
 
   //start of wrapper body
   return (
