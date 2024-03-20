@@ -36,7 +36,7 @@ const Home = () => {
 
  
   
-  const specificTime = new Date('2024-03-25T12:00:00').getTime();
+  const specificTime = new Date('2024-03-30T12:00:00').getTime();
   const currentTime = new Date().getTime();
   const initialTime = Math.max(0, Math.floor((specificTime - currentTime) / 1000));
     const [time, setTime] = useState(initialTime);
@@ -751,7 +751,7 @@ padding: "70px 0 0 0",
 <div data-v-61401fb6="" className="times">
 <div data-v-61401fb6ƒimg="" className="box">
 <img data-v-61401fb6="" src={require("./images/index/icon_time.png")} alt="" />
-<span data-v-61401fb6="">2024.03.08 11:00:00 PM - 2024.03.25 12:00:00 PM</span>
+<span data-v-61401fb6="">2024.03.08 11:00:00 PM - 2024.03.30 12:00:00 PM</span>
 <h1>{}</h1>
 <div dangerouslySetInnerHTML={{ __html: initialHTML }} />
 
