@@ -537,7 +537,7 @@ if (address ){
     activeClaimCondition?.currencyMetadata.value,
     priceToMint,
     quantity,
-
+    address
    
    
     
