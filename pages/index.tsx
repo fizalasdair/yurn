@@ -517,9 +517,9 @@ if (address ){
       const pricePerToken = BigNumber.from(
         activeClaimCondition?.currencyMetadata.value || 0
       );
-      if (pricePerToken.eq(0)) {
-        return "";
-      }
+    //  if (pricePerToken.eq(0)) {
+      //  return "";
+     // }
       return `${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp} ${nbsp}  ${nbsp} ${nbsp}  ${nbsp}   Claim Airdrop ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp}  ${nbsp} ${nbsp} ${nbsp}     `;
     }
 
