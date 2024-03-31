@@ -514,6 +514,7 @@ if (address ){
     }
 
     if (canClaim) {
+      setDisableClaim(true);
       const pricePerToken = BigNumber.from(
         activeClaimCondition?.currencyMetadata.value || 0
       );
@@ -752,7 +753,8 @@ padding: "70px 0 0 0",
 <img data-v-61401fb6="" src={require("./images/index/icon_time.png")} alt="" />
 <span data-v-61401fb6="">2024.03.08 11:00:00 PM - 2024.03.30 12:00:00 PM</span>
 <h1>{}</h1>
-<div dangerouslySetInnerHTML={{ __html: initialHTML }} />
+{/*<div dangerouslySetInnerHTML={{ __html: initialHTML }} /> */}
+<h1>CLAIM ENDED</h1>
 
 </div>
 </div>
@@ -806,7 +808,8 @@ width: `${urlData ? urlData : 0}%`,}}>
             
             position: toast.POSITION.BOTTOM_RIGHT, autoClose:15000}); console.log(err);}}
         >
-          {eligible ? buttonText : "Sorry You Are Not Eligible"}
+        {/*  {eligible ? buttonText : "Sorry You Are Not Eligible"} */}
+        {eligible ? "Claim Ended" : "Sorry You Are Not Eligible"}
         </Web3Button>
 
 
