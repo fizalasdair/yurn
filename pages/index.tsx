@@ -848,11 +848,11 @@ display: "flex",}}> {showRef ? reflink : "-"} </div>
 <div data-v-6566204c="" className="address"></div>
 <div data-v-6566204c="" className="btns">
 {/*<a data-v-6566204c="" target="_blank" rel="noreferrer" href="https://app.uniswap.org/#/swap?outputCurrency=0xc35457E32E6fCD8d32019D3A46bc2ECC25FAAb87" className="btn-action">*/}
-<a data-v-6566204c="" rel="noreferrer" href="#" className="btn-action">
-<span data-v-6566204c="">Buy BASEDOGE</span>
+<a data-v-6566204c="" rel="noreferrer" href="" className="btn-action">
+<span data-v-6566204c="https://app.uniswap.org/swap?outputCurrency=0x78E3B821d5eEF560b841634ac4b7204e16A245f0&chain=base">Buy BASEDOGE</span>
 </a>
 <a data-v-6566204c=""  rel="noreferrer" href="#" className="btn-action outli">
-<span data-v-6566204c="">View On Dexscreener</span>
+<span data-v-6566204c="https://dexscreener.com/base/0x78E3B821d5eEF560b841634ac4b7204e16A245f0">View On Dexscreener</span>
 
 </a>
 </div>
