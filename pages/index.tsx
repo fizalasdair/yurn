@@ -765,8 +765,10 @@ padding: "70px 0 0 0",
 </div>
 <div data-v-61401fb6="" className="progressBar">
 <div data-v-61401fb6="" className="progressBarInner"
+// style={{width: `${urlData ? urlData : 0}%`,}}
+
 style={{
-width: `${urlData ? urlData : 0}%`,}}>
+  width: `${urlData ? 100 : 0}%`,}}> 
 
 </div>
 </div>
